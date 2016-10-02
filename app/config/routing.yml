@@ -1,5 +1,5 @@
 rest_blog:
-    resource: "@RESTBlogBundle/Controller/"
+    resource: "@RESTBlogBundle/Controller/Admin/"
     type:     annotation
-    prefix:   /
+    prefix:   /admin
 
