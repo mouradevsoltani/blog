@@ -27,6 +27,7 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
+        $this->roles = array('ROLE_ADMIN'); // Assignation de ROLE_ADMIN par défaut
         $this->articles = new ArrayCollection();
     }
 

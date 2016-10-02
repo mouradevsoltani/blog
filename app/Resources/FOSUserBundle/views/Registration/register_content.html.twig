@@ -1,0 +1,92 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Inscription</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST"
+                      class="fos_user_profile_edit">
+
+                    <div class="form-group">
+                        <label>Adresse e-mail</label>
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'} }) }}
+                        <p class="text-danger">
+                            {{ form_errors(form.email) }}
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Nom d'utilisateur</label>
+                        {{ form_widget(form.username, {'attr': {'class': 'form-control'} }) }}
+                        <p class="text-danger">
+                            {{ form_errors(form.username) }}
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Mot de passe</label>
+                        {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control'} }) }}
+                        <p class="text-danger">
+                            {{ form_errors(form.plainPassword.first) }}
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirmation du mot de passe</label>
+                        {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control'} }) }}
+                        <p class="text-danger">
+                            {{ form_errors(form.plainPassword.second) }}
+                        </p>
+                    </div>
+                    <p>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-edit"></i> {{ 'registration.submit'|trans }}
+                        </button>
+                    </p>
+                    {{ form_rest(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Informations</h3>
+            </div>
+            <div class="panel-body">
+                <p>
+                    Pour créer de nouveaux utilisateurs rechargez les fixtures de l'application en exécutant cette
+                    commande depuis le terminal :
+                </p>
+                <p>
+                    <code class="console">$ php app/console doctrine:fixtures:load</code>
+                </p>
+                <p>
+                    <span class="label label-success">Félicitations</span>
+                    Vous avez créé deux utilisateurs :<br>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Mot de passe</th>
+                        <th>Rôle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>admin</td>
+                        <td>admin</td>
+                        <td>Super Admin (ROLE_SUPER_ADMIN)</td>
+                    </tr>
+                    <tr>
+                        <td>mourad</td>
+                        <td>mourad</td>
+                        <td>Membre (ROLE_ADMIN)</td>
+                    </tr>
+                    </tbody>
+                </table>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

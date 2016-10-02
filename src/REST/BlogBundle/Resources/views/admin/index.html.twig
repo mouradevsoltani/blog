@@ -1,0 +1,39 @@
+{% extends ':layouts:base.html.twig' %}
+    {% block header %}
+        Tableau de bord
+    {% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-md-6">
+            <p class="well">
+                <label class="label label-success">{{ app.user.username }}</label> :
+                Connécté en tant que <label class="label label-info">
+                {% if is_granted('ROLE_ADMIN') %}
+                    Membre
+                {% else %}
+                    Super Admin
+                {% endif %}
+                </label>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Actions</div>
+                <div class="panel-body">
+                    <p>
+                        <a class="btn btn-default" href="{{ path('article_index') }}">Liste des articles</a>
+                        <a class="btn btn-primary" href="{{ path('article_new') }}">Ajouter un article</a>
+                    </p>
+                    <p>
+                        <a class="btn btn-default" href="{{ path('fos_user_profile_show') }}">Afficher mon profil</a>
+                        <a class="btn btn-primary" href="{{ path('fos_user_profile_edit') }}">Modifier mon profil</a>
+                        <a class="btn btn-danger" href="{{ path('fos_user_change_password') }}">Changer mon mot de passe</a>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

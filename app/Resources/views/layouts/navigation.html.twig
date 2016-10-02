@@ -12,21 +12,41 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Accueil</a></li>
+                <li class="active">
+                    <a href="#">Accueil</a>
+                </li>
             </ul>
+
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Tableau de bord</a></li>
+                <li>
+                    <a href="{{ path('admin_index') }}">Tableau de bord</a>
+                </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {{ app.user.username }} <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Profil</a></li>
+                        <li>
+                            <a href="{{ path('fos_user_profile_show') }}">Profil</a>
+                        </li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Déconnexion</a></li>
+                        <li>
+                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
+            {% else %}
+                <div class="navbar-right">
+                    <a class="btn btn-primary navbar-btn " href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                    <a class="btn btn-success navbar-btn " href="{{ path('fos_user_security_login') }}">Connexion</a>
+                </div>
+            {% endif %}
         </div><!-- /.navbar-collapse -->
+
     </div><!-- /.container-fluid -->
 </nav>

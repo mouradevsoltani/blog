@@ -1,0 +1,80 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div class="alert alert-block alert-danger">{
+        { error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">Authentification</h3>
+            </div>
+            <div class="panel-body">
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                    <div class="form-group">
+                        <label for="username">{{ 'security.login.username'|trans }}</label>
+                        <input type="text" class="form-control" id="username" name="_username"
+                               value="{{ last_username }}" required="required"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">{{ 'security.login.password'|trans }}</label>
+                        <input type="password" class="form-control" id="password" name="_password" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                        <input type="checkbox" class="checkbox" id="remember_me" name="_remember_me" value="on"/>
+                    </div>
+                    <p>
+                        <button type="submit" class="btn btn-primary" id="_submit"
+                                name="_submit">{{ 'security.login.submit'|trans }}</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-warning">
+        <div class="panel-heading">
+            <h3 class="panel-title">Informations</h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                Pour créer de nouveaux utilisateurs rechargez les fixtures de l'application en exécutant cette commande depuis le terminal :
+            </p>
+            <p>
+                <code class="console">$ php app/console doctrine:fixtures:load</code>
+            </p>
+            <p>
+                <span class="label label-success">Félicitations</span>
+                Vous avez créé deux utilisateurs :<br>
+                <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Login</th>
+                    <th>Mot de passe</th>
+                    <th>Rôle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>admin</td>
+                    <td>admin</td>
+                    <td>Super Admin (ROLE_SUPER_ADMIN)</td>
+                </tr>
+                <tr>
+                    <td>mourad</td>
+                    <td>mourad</td>
+                    <td>Membre (ROLE_ADMIN)</td>
+                </tr>
+                </tbody>
+            </table>
+            </p>
+        </div>
+    </div>
+    </div>
+</div>
