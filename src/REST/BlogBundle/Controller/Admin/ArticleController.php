@@ -2,6 +2,8 @@
 
 namespace REST\BlogBundle\Controller\Admin;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -21,12 +23,26 @@ class ArticleController extends Controller
      *
      * @Route("/", name="article_index")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser(); // utilisateur courant
 
-        $articles = $em->getRepository('RESTBlogBundle:Article')->findAll();
+        // Récupération de tous les articles pour l'utilsateur courant (super admin)
+        if ($user->hasRole("ROLE_SUPER_ADMIN")) {
+            $articles = $em->getRepository('RESTBlogBundle:Article')->findBy(
+                array(),
+                array('dateCreation' => 'DESC')
+            );
+        } else {
+            // Récupération d'articles de l'utilsateur courant (Membre)
+            $articles = $em->getRepository('RESTBlogBundle:Article')->findBy(
+                array('auteur' => $user),
+                array('dateCreation' => 'DESC')
+            );
+        }
 
         return $this->render('@RESTBlog/article/index.html.twig', array(
             'articles' => $articles,
@@ -38,6 +54,7 @@ class ArticleController extends Controller
      *
      * @Route("/new", name="article_new")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function newAction(Request $request)
     {
@@ -67,9 +84,14 @@ class ArticleController extends Controller
      *
      * @Route("/{id}", name="article_show")
      * @Method("GET")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function showAction(Article $article)
     {
+        // Vérifier si l'utilisateur est celui l'auteur ou le super admin pour accéder à l'article
+        if ($this->getUser()->hasRole("ROLE_SUPER_ADMIN") == false && $this->getUser() != $article->getAuteur()) {
+            throw new AccessDeniedException("Vous n'avez pas les droits suffisants pour accéder à cette page");
+        }
         $deleteForm = $this->createDeleteForm($article);
 
         return $this->render('@RESTBlog/article/show.html.twig', array(
@@ -83,9 +105,15 @@ class ArticleController extends Controller
      *
      * @Route("/{id}/edit", name="article_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction(Request $request, Article $article)
     {
+        // Vérifier si l'utilisateur est celui l'auteur ou le super admin pour modifier l'article
+        if ($this->getUser()->hasRole("ROLE_SUPER_ADMIN") == false && $this->getUser() != $article->getAuteur()) {
+            throw new AccessDeniedException("Vous n'avez pas les droits suffisants pour accéder à cette page");
+        }
+
         $deleteForm = $this->createDeleteForm($article);
         $editForm = $this->createForm('REST\BlogBundle\Form\ArticleType', $article);
         $editForm->handleRequest($request);
@@ -112,9 +140,15 @@ class ArticleController extends Controller
      *
      * @Route("/{id}", name="article_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, Article $article)
     {
+        // Vérifier si l'utilisateur est celui l'auteur ou le super admin pour supprimer l'article
+        if ($this->getUser()->hasRole("ROLE_SUPER_ADMIN") == false && $this->getUser() != $article->getAuteur()) {
+            throw new AccessDeniedException("Vous n'avez pas les droits suffisants pour accéder à cette page");
+        }
+
         $form = $this->createDeleteForm($article);
         $form->handleRequest($request);
 
@@ -141,7 +175,6 @@ class ArticleController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('article_delete', array('id' => $article->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
