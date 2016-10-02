@@ -1,21 +1,65 @@
-{% extends 'base.html.twig' %}
-
+{% extends ':layouts:base.html.twig' %}
+    {% block header %}
+        Modification article
+    {% endblock %}
 {% block body %}
-    <h1>Article edit</h1>
-
     {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Titre</label>
+                {{ form_widget(edit_form.titre) }}
+            </div>
+            <div class="form-group">
+                <label>Contenu</label>
+                {{ form_widget(edit_form.contenu) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <button type="submit" class="btn btn-success">
+                    Sauvegarder
+                </button>
+                <a href="{{ path('article_index') }}" class="btn btn-default">
+                    Retour à la liste
+                </a>
+                <a href="#suppression" data-toggle="modal" class="btn btn-danger">
+                    Supprimer
+                </a>
+            </p>
+        </div>
+    </div>
     {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('article_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <!-- Popup DELETE -->
+    <div id="suppression" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog"
+         aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Confirmer la suppression</h4>
+                </div>
+                <div class="modal-body">
+                    {{ form(delete_form) }}
+                    <p class="text-danger text-center">
+                        Souhaitez-vous vraiment supprimer ceci ?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" onClick="form.submit()" class="btn btn-danger" data-placement="top"
+                       data-original-title="Supprimer">
+                        <i class="fa fa-trash-o"></i> Oui, Supprimer
+                    </a>
+                    <button type="button" data-dismiss="modal" class="btn btn-default">
+                        Non
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Popup DELETE -->
 {% endblock %}

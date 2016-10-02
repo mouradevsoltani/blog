@@ -15,14 +15,12 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('slug')
-            ->add('contenu')
-            ->add('dateCreation', 'datetime')
-            ->add('dateModification', 'datetime')
-        ;
+            ->add('titre', 'text', array('attr' => array('class' => 'form-control')))
+            ->add('contenu', 'ckeditor', array(
+                'config_name' => 'my_config'
+            ));
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */

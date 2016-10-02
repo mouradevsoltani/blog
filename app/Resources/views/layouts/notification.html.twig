@@ -1,0 +1,21 @@
+{% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            {% if  type == 'success' %}
+                <div class="alert alert-success alert-block fade in">
+                    <button type="button" class="close close-sm" data-dismiss="alert">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <p>{{ message }}.</p>
+                </div>
+            {% else %}
+                <div class="alert alert-block alert-danger fade in">
+                    <button type="button" class="close close-sm" data-dismiss="alert">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <p>{{ message }}.</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+{% endif %}

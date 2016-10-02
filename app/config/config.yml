@@ -71,3 +71,9 @@ stof_doctrine_extensions:
         default:
             timestampable: true
             sluggable: true
+
+#CKEDITOR
+ivory_ck_editor:
+    configs:
+        my_config:
+            
