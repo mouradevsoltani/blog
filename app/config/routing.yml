@@ -1,3 +1,11 @@
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+rest_user:
+    resource: "@RESTUserBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 rest_blog:
     resource: "@RESTBlogBundle/Controller/Admin/"
     type:     annotation
