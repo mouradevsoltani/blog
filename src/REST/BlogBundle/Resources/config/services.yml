@@ -1,0 +1,4 @@
+services:
+#    rest_blog.example:
+#        class: REST\BlogBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
