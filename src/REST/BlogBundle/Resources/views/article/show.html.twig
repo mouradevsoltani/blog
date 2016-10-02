@@ -21,7 +21,11 @@
                 </tr>
                 <tr>
                     <th>Contenu</th>
-                    <td>{{ article.contenu }}</td>
+                    <td>{{ article.contenu|raw }}</td>
+                </tr>
+                <tr>
+                    <th>Auteur</th>
+                    <td>{{ article.auteur.username }}</td>
                 </tr>
                 <tr>
                     <th>Date de création</th>

@@ -42,6 +42,7 @@ class ArticleController extends Controller
     public function newAction(Request $request)
     {
         $article = new Article();
+        $article->setAuteur($this->getUser()); // initialisation de l'auteur (utilisateur courant)
         $form = $this->createForm('REST\BlogBundle\Form\ArticleType', $article);
         $form->handleRequest($request);
 

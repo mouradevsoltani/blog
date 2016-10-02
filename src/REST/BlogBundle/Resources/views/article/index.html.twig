@@ -16,6 +16,7 @@
                     <th>Id</th>
                     <th>Titre</th>
                     <th>Slug</th>
+                    <th>Auteur</th>
                     <th>Date de création</th>
                     <th>Date de modification</th>
                     <th>Actions</th>
@@ -27,6 +28,7 @@
                         <td><a href="{{ path('article_show', { 'id': article.id }) }}">{{ article.id }}</a></td>
                         <td>{{ article.titre }}</td>
                         <td>{{ article.slug }}</td>
+                        <td>{{ article.auteur.username }}</td>
                         <td>{% if article.dateCreation %}{{ article.dateCreation|date('d/m/Y H:i:s') }}{% endif %}</td>
                         <td>{% if article.dateModification %}{{ article.dateModification|date('d/m/Y H:i:s') }}{% endif %}</td>
                         <td>

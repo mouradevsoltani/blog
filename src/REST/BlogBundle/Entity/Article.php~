@@ -196,28 +196,4 @@ class Article
     {
         return $this->dateModification;
     }
-
-    /**
-     * Set auteur
-     *
-     * @param \REST\UserBundle\Entity\User $auteur
-     *
-     * @return Article
-     */
-    public function setAuteur(\REST\UserBundle\Entity\User $auteur = null)
-    {
-        $this->auteur = $auteur;
-
-        return $this;
-    }
-
-    /**
-     * Get auteur
-     *
-     * @return \REST\UserBundle\Entity\User
-     */
-    public function getAuteur()
-    {
-        return $this->auteur;
-    }
 }
