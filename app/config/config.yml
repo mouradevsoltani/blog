@@ -76,6 +76,7 @@ stof_doctrine_extensions:
 ivory_ck_editor:
     configs:
         my_config:
+            toolbar: full
 
 #FOSUserBundle
 fos_user:

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="blogModule">
 <head>
     <meta charset="UTF-8"/>
     <title>{% block title %}RESTFUL Blog!{% endblock %}</title>
@@ -10,6 +10,7 @@
               crossorigin="anonymous">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
 </head>
 <body>
 
@@ -25,6 +26,8 @@
             <h2>
                 {% block header %}{% endblock %}
             </h2>
+
+
             {% block body %}{% endblock %}
         </div>
     </div>

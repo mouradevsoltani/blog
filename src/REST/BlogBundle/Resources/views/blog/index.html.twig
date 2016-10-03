@@ -1,1 +1,27 @@
-{{ articles | serialize('json') }}
+{% extends ':layouts:base.html.twig' %}
+    {% block header %}
+        Articles
+    {% endblock %}
+{% block body %}
+    <div class="row" ng-controller="blogController">
+        <div class="col-md-12" ng-repeat="article in articles">
+            <p class="lead">
+            <h2>
+                <a href="">[[ article.titre ]]</a>
+            </h2>
+            </p>
+            <p>
+                <span class="glyphicon glyphicon-time"></span> Créé le [[ article.dateCreation ]]
+                par <a href="">[[ article.auteur ]]</a>
+            </p>
+            <div ng-bind-html="[[ article.contenu ]]"></div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('bundles/restblog/js/blog.js') }}"></script>
+{% endblock %}
