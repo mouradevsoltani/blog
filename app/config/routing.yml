@@ -6,8 +6,13 @@ rest_user:
     type:     annotation
     prefix:   /
 
-rest_blog:
+rest_blog_admin:
     resource: "@RESTBlogBundle/Controller/Admin/"
     type:     annotation
     prefix:   /admin
+
+rest_blog_front:
+    resource: "@RESTBlogBundle/Controller/Blog/"
+    type:     annotation
+    prefix:   /
 
