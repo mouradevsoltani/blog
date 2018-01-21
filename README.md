@@ -1,9 +1,10 @@
 RESTful Blog
 =========
-Création d'un blog qui fourni une API RESTful en utilisant le framework Symfony et Angular Js.
+RESTfull Blog using Symfony2 and AngularJs.
 
 Installation
 =============
+```
 1) git clone https://github.com/mouradevsoltani/blog.git
 
 2) git composer update
@@ -15,5 +16,6 @@ Installation
 6) php app/console assets:install
 
 7) php app/console doctrine:fixtures:load
+```
 
 
